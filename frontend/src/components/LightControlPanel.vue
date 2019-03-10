@@ -4,14 +4,15 @@
   >
     <ControlPanelItem label="Power">
       <SwitchControl
-        v-bind:initial-state="false"
-        v-on:toggle="toggleLight"
+        :initial-state="lamp.powerOn"
+        @toggle="toggleLight"
       />
     </ControlPanelItem>
     <ControlPanelItem label="Intensity">
       <SliderControl
-        v-bind:level="20"
-        v-bind:level-label-func="getSliderLabel"
+        :level="lampLevel"
+        :level-label-func="getSliderLabel"
+        @slider-move-end="updateIntensity"
       />
     </ControlPanelItem>
     <ControlPanelItem
@@ -23,7 +24,7 @@
     </ControlPanelItem>
     <ControlPanelItem
       label="End Time"
-      v-bind:include-divider="false"
+      :include-divider="false"
     >
       <div class="hi time-picker-wrapper">
         <BaseTimePicker initial-time="20:00" />
@@ -33,8 +34,8 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
-import { UPDATE_LAMP } from '@/store/actions.types';
+import { mapActions, mapGetters } from 'vuex';
+import { UPDATE_MODULE_STATE, UPDATE_MODULE_PARAMS } from '@/store/actions.types';
 
 import BaseTimePicker from './BaseTimePicker';
 import ControlPanel from './ControlPanel';
@@ -52,22 +53,29 @@ export default {
     SwitchControl,
     SliderControl,
   },
+  computed: {
+    ...mapGetters(['lamp']),
+    lampLevel() {
+      return Number(this.lamp.level);
+    },
+  },
   methods: {
-    ...mapActions([UPDATE_LAMP]),
+    ...mapActions([UPDATE_MODULE_STATE, UPDATE_MODULE_PARAMS]),
     // TODO: this is shared with heater control panel. Extract into util function
     toggleLight(lightState) {
-      console.log('hello');
-      this.UPDATE_LAMP({
-        moduleName: 'ZeePrime', // TODO: this should be selected from the action
-        actuatorKey: 'Lamp',
+      this.UPDATE_MODULE_STATE({
+        actuatorType: 'Lamp',
         newState: lightState,
+      });
+    },
+    updateIntensity([level]) {
+      this.UPDATE_MODULE_PARAMS({
+        actuatorType: 'Lamp',
+        newParams: { level },
       });
     },
     getSliderLabel(sliderPos) {
       return `${sliderPos}%`;
-    },
-    sayHi() {
-      console.log('hello');
     },
   },
 };

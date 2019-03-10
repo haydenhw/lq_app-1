@@ -3,12 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "NODE_ENV='la_warehouse' vue-cli-service serve",
+    "serve:offsite": "vue-cli-service serve", 
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "start": "concurrently \"cd ../backend && node dosis.js\" \"vue-cli-service serve\"",
-    "test": "npm run test:unit",
-    "test:unit": "vue-cli-service test:unit  --watch --verbose=false || true",
+    "test": "yarn test:unit",
+    "test:unit": "vue-cli-service test:unit --watch --verbose=false || true",
     "test:e2e": "vue-cli-service test:e2e"
   },
   "dependencies": {
@@ -36,6 +37,7 @@
     "@vue/cli-service": "^3.4.0",
     "@vue/eslint-config-airbnb": "^4.0.0",
     "@vue/test-utils": "^1.0.0-beta.20",
+    "axios-mock-adapter": "^1.16.0",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",

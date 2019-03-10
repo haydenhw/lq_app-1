@@ -1,13 +1,13 @@
 <template>
   <v-card
     height="100%"
-    flat
+    :elevation="0"
   >
     <v-bottom-nav
       :active.sync="activeNavButton"
       :value="true"
       absolute
-      v-bind:style="{height: '100%'}"
+      :style="{height: '100%'}"
       color="transparent"
     >
       <v-btn
@@ -24,10 +24,10 @@
       <v-btn
         color="teal"
         flat
-        value="LQR"
+        value="MV1"
       >
         <div class="nav-logout-label">
-          LQR
+          MV1
         </div>
         <span class="icon-reactor nav-icon" />
       </v-btn>
@@ -37,7 +37,7 @@
         flat
         value="logout"
         class="nav-logout-button"
-        v-on:click="logout"
+        @click="logout"
       >
         <div class="nav-logout-label">
           Logout
@@ -50,8 +50,8 @@
 
 <script>
 import { mapGetters, mapMutations } from 'vuex';
-import callApi from '@/utils/ApiUtils.js';
-import { LOGOUT_URL } from '@/constants/ApiConstants.js';
+import callApi from '@/utils/api.utils.js';
+import { LOGOUT_URL } from '@/constants/api.constants.js';
 import {
   UPDATE_SELECTED_MODULE,
 } from '@/store/mutations.types';
@@ -76,14 +76,6 @@ export default {
     ...mapMutations([
       UPDATE_SELECTED_MODULE,
     ]),
-    // selectZeePrime() {
-    //   // TODO: make a zee prime constant and use here
-    //   this.UPDATE_SELECTED_MODULE('ZeePrime');
-    // },
-    // selectLQR() {
-    //   // TODO: make a Dosis1 constant and use here
-    //   this.UPDATE_SELECTED_MODULE('Dosis1');
-    // },
     async logout() {
       await callApi(LOGOUT_URL);
       this.$router.push('/login');
@@ -91,11 +83,19 @@ export default {
   },
 };
 </script>
-
 <style scoped lang="scss">
+@import '../styles/variables';
+
+.theme--light.v-sheet {
+  border-top: 1px solid $grey-100;
+}
+
 .v-item-group {
   &.v-item-nav{
     height: 100%;
+  }
+  &.v-bottom-nav {
+    box-shadow: none;
   }
 }
 

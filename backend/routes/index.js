@@ -670,7 +670,7 @@ HWProc.on('message', (message) => {
                                       if ( (modObj.parameters !== undefined) && (modObj.parameters[swtch] !== undefined) ) {
                                           var pars = modObj.parameters[swtch];
                                           for ( var pkey in pars ) {
-                                              msg.data[pkey] = pars[pars];
+                                              msg.data[pkey] = pars[pkey];
                                           }
                                           if ( msg.data.stop !== undefined ) {
                                               msg.data.start = msg.data.stop;
@@ -697,8 +697,8 @@ HWProc.on('message', (message) => {
 
                   } else {   // SEND SENSOR DATA
                       //
-                      //console.log(message)
                       HWProc.dataEvents.emit('datum', message);
+
                       var storeData = message.message;
                       if ( storeData && storeData.OD && storeData.Temperature && storeData.id && !IamCloud ) {
                           if ( !(isNaN(storeData.OD) || isNaN(storeData.Temperature)) ) {

@@ -1,9 +1,7 @@
 <template>
   <div class="reactor-controls view">
     <BaseHeader
-      back-icon
-      v-bind:title="headerTitle"
-      v-bind:handle-icon-click="routeHome"
+      :title="headerTitle"
     />
     <div class="rc-main">
       <div class="rc-sidebar">
@@ -11,25 +9,28 @@
           <BaseSidebarItem
             title="Air"
             icon-name="icon-air"
-            v-bind:handle-click="SET_AIR_ACTIVE"
+            :handle-click="SET_AIR_ACTIVE"
           />
           <BaseSidebarItem
             title="Light"
             icon-name="icon-light"
-            v-bind:handle-click="SET_LIGHT_ACTIVE"
+            :handle-click="SET_LIGHT_ACTIVE"
           />
           <BaseSidebarItem
             title="Heater"
             icon-name="icon-heat"
-            v-bind:handle-click="SET_HEATER_ACTIVE"
+            :handle-click="SET_HEATER_ACTIVE"
           />
         </BaseSidebar>
       </div>
       <div class="rc-controls">
         <component
-          v-bind:is="currentControlPanel"
+          :is="currentControlPanel"
         />
       </div>
+    </div>
+    <div class="nav">
+      <BaseNav />
     </div>
   </div>
 </template>
@@ -43,6 +44,7 @@ import {
 } from '@/store/mutations.types';
 
 import BaseHeader from '@/components/BaseHeader';
+import BaseNav from '@/components/BaseNav';
 import BaseSidebar from '@/components/BaseSidebar';
 import BaseSidebarItem from '@/components/BaseSidebarItem';
 import LightControlPanel from '@/components/LightControlPanel';
@@ -53,6 +55,7 @@ import AirControlPanel from '@/components/AirControlPanel';
 export default {
   components: {
     BaseHeader,
+    BaseNav,
     BaseSidebar,
     BaseSidebarItem,
     HeaterControlPanel,
@@ -121,4 +124,10 @@ export default {
   left: 0.1em;
 }
 
+.nav {
+  position: fixed;
+  bottom: 0;
+  height: 75px;
+  width: 100%;
+}
 </style>
