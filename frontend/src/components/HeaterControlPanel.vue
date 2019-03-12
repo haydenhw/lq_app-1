@@ -4,7 +4,7 @@
   >
     <ControlPanelItem label="Power">
       <SwitchControl
-        :initial-state="heater.powerOn"
+        :is-on="heater.powerOn"
         @toggle="toggleHeater"
       />
     </ControlPanelItem>
@@ -22,6 +22,7 @@
       <!-- Returns a slider with two handles since an array is suplied to the level prop -->
       <SliderControl
         :level="heaterMinMax"
+        :limits="[20, 45]"
         :level-label-func="getTempLabel"
         @slider-move-end="updateLimits"
       />
@@ -48,6 +49,7 @@ export default {
     SliderControl,
   },
   computed: {
+    // TODO: refactor to be more explicit about which properties heater has (use mapState)
     ...mapGetters(['heater']),
     heaterLevel() {
       return Number(this.heater.level);

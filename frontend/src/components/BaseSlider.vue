@@ -6,25 +6,37 @@
 /* eslint "func-names": "off" */
 import noUiSlider from 'nouislider';
 
-const getConnect = level => (Array.isArray(level) ? true : [true, false]);
+const getConnect = initialValue => (Array.isArray(initialValue) ? true : [true, false]);
 const getRoundedValues = values => values.map(val => Math.ceil(Number(val)));
 
 export default {
   name: 'BaseSlider',
   props: {
-    level: {
+    // TODO : rename this to something like 'currentValue'
+    initialValue: {
       type: [Number, Array],
       required: true,
+    },
+    limits: {
+      type: Array,
+      default: () => [0, 100],
+    },
+  },
+  watch: {
+    initialValue(newVal) {
+      const { slider } = this.$refs;
+
+      slider.noUiSlider.set(newVal);
     },
   },
   mounted() {
     const { slider } = this.$refs;
     noUiSlider.create(slider, {
-      start: this.level,
-      connect: getConnect(this.level),
+      start: this.initialValue,
+      connect: getConnect(this.initialValue),
       range: {
-        min: 0,
-        max: 100,
+        min: this.limits[0],
+        max: this.limits[1],
       },
     });
 

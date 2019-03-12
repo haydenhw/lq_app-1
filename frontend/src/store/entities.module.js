@@ -5,9 +5,11 @@ import callApi from '@/utils/api.utils.js';
 
 import { moduleSchema } from '@/constants/schemas';
 import { MODULES_URL, UPDATE_STATE_URL } from '@/constants/api.constants';
+// TODO: refactor so that this comes from back end configuration
 import { modulesInitial } from './entities.initialState.js';
 import { UPDATE_MODULE_PARAMS, UPDATE_MODULE_STATE, UPDATE_MODULE_LIMITS } from './actions.types';
 import {
+  FETCH_MODULES_SUCCESS,
   FETCH_MODULES,
   LOAD_REACTIONS,
   LOAD_MODULES,
@@ -85,6 +87,7 @@ export const getModuleUpdateAction = mutationType => (
 
 
 export const actions = {
+  // TODO: add logic to handle fetch failure
   async [FETCH_MODULES]({ commit }, successRoute) {
     // If user is logged in 'data' will contain an array of module data.
     // Otherwise 'data' will contain an error message.
@@ -98,8 +101,10 @@ export const actions = {
 
       const { entities } = normalize(data, moduleSchema);
       const { modules, reactions } = entities;
+
       commit(LOAD_MODULES, modules);
       commit(LOAD_REACTIONS, reactions);
+      commit(FETCH_MODULES_SUCCESS);
 
       if (successRoute) {
         router.push(successRoute);
@@ -126,10 +131,7 @@ export const getApiUpdatePayload = actuatorName => (
   const paramsKey = `${selectedModuleName}-${actuatorName}-parameters`;
   const limitsKey = `${selectedModuleName}-${actuatorName}-limits`;
 
-  const targetParams = activeModuleParams[actuatorName];
   const targetLimits = activeModuleLimits[actuatorName];
-
-  const params = { level: targetParams.level };
   const limits = targetLimits
     ? { 'HIGH-value': targetLimits['HIGH-value'], 'LOW-value': targetLimits['LOW-value'] }
     : {};
@@ -140,7 +142,7 @@ export const getApiUpdatePayload = actuatorName => (
     activeId: activeReactionId,
     activeSwitch: `ReactionActive-${activeReactionId}`,
     changes: [actuatorName],
-    [paramsKey]: params,
+    [paramsKey]: activeModuleParams[actuatorName],
     [limitsKey]: limits || {},
   };
 };

@@ -3,9 +3,11 @@
 <template>
   <div class="slider-control">
     <div class="slider-control-slider">
+      <!-- Do I need the value prop belo0w ? -->
       <BaseSlider
-        :level="level"
-        :value="sliderPosition"
+        v-if="!isFetching"
+        :initial-value="level"
+        :limits="limits"
         :color="color"
         @slider-move="handleSliderMove"
         @slider-move-end="handleSliderMoveEnd"
@@ -18,6 +20,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import BaseSlider from './BaseSlider';
 import { COLOR_PRIMARY } from '../constants/style.constants';
 
@@ -31,18 +34,25 @@ export default {
       type: [Number, Array],
       required: true,
     },
+    limits: {
+      type: Array,
+      default: () => [0, 100],
+    },
     levelLabelFunc: {
       type: Function,
       required: true,
     },
   },
-  // TODO: consider if there is a better design that allows this component not to have state
   data() {
     return {
       sliderPosition: this.level,
     };
   },
   computed: {
+    // TODO: refactor so that this is supplied as a prop
+    ...mapState({
+      isFetching: state => state.modules.isFetching,
+    }),
     levelLabel() {
       return this.levelLabelFunc(this.sliderPosition);
     },
