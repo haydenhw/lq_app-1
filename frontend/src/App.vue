@@ -11,15 +11,23 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapMutations } from 'vuex';
 import { FETCH_MODULES } from '@/store/actions.types.js';
+import { SOCKET_DATUM } from '@/store/mutations.types';
 
 export default {
   name: 'App',
   created() {
     this.FETCH_MODULES();
   },
+  sockets: {
+    // receives sensor data  for OD and Temp
+    datum(data) {
+      this.SOCKET_DATUM(data);
+    },
+  },
   methods: {
+    ...mapMutations([SOCKET_DATUM]),
     ...mapActions([FETCH_MODULES]),
   },
 };

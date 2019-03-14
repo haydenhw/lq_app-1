@@ -65,9 +65,11 @@ global.subst = (a,b,c) => {
 
 global.ensureAuthenticated = (req, res, next) => {
     if ( req.isAuthenticated() ) {
-        return next();
+      return next();
+    } else if (req.get('client') === 'vue-client') {
+        res.sendStatus(401);
     } else {
-        req.flash('error', 'Not logged in');
+        // req.flash('error', 'Not logged in');
         res.redirect('/users/login');
     }
 }
@@ -148,6 +150,7 @@ app.engine('handlebars', exphbs({defaultLayout: 'layout', layoutsDir: __dirname 
 
 //Set Public folder
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/vue', express.static('dist'));
 
 app.use(cors({
   origin: [
@@ -218,6 +221,10 @@ app.use(function (req, res, next){
 app.use('/', index);
 app.use('/users', users);
 app.use('/modules', modules);
+
+app.get('/vue/*', (req, res) => {
+  res.redirect('/vue');
+});
 
 //Server connection
 server.listen(gPortNum, () => {

@@ -52,6 +52,66 @@ const testPayload = {
   },
   'ZeePrime-Lamp-limits': {},
 };
+// takes state and selectedModuleName
+describe('activeModule getter', () => {
+  test('returns a module when valid arguments are supplied', () => {
+    const actual = activeModule(state, { selectedModuleName: 'ZeePrime' });
+    expect(actual).toEqual(expect.objectContaining({
+      moduleState: expect.any(Object),
+    }));
+  });
+  test('throws an error if activeModule is undefined', () => {
+    console.log = jest.fn();
+    const callWithUndefinedState = () => { activeModule({ modules: {} }, 'MV1'); };
+    expect(callWithUndefinedState).toThrowError('active module is undefined');
+  });
+  test('throws an error if selectedModuleName is undefined', () => {
+    console.log = jest.fn();
+    const callWithUndefinedState = () => {
+      activeModule(state, { selectedModuleName: undefined });
+    };
+    expect(callWithUndefinedState).toThrowError('active module is undefined');
+  });
+  test('throws an error if selectedModuleName does not exist in state', () => {
+    console.log = jest.fn();
+    const callWithUndefinedState = () => {
+      activeModule(state, { selectedModuleName: 'notAValidModuleName' });
+    };
+    expect(callWithUndefinedState).toThrowError('active module is undefined');
+  });
+});
+
+<<<<<<< HEAD
+
+describe('getActiveReactionId', () => {
+  test('returns an id when valid arguments are supplied', () => {
+    const alert = jest.fn();
+    const actual = getActiveReactionId(alert)(state);
+    const expected = '5c536562d0e2ce03f1524c9c';
+    expect(actual).toBe(expected);
+  });
+  test('triggers an alert and throws an error if reactions object is empty', () => {
+    const alert = jest.fn();
+    const message = 'No active reactions were found. Make sure that you are logged in and that a reaction is active';
+    const testState = { modules: {}, reactions: {} };
+    const testFunc = () => { getActiveReactionId(alert)(testState); };
+    expect(testFunc).toThrow(message);
+    expect(alert).toBeCalled();
+  });
+  test('triggers an alert and throws an error if no active reactions object is empty', () => {
+    const alert = jest.fn();
+    const message = 'No active reactions were found. Make sure that you are logged in and that a reaction is active';
+    const testState = {
+      modules: state.modules,
+      reactions: { 123: { active: false }, 456: { active: false } },
+    };
+    const testFunc = () => { getActiveReactionId(alert)(testState); };
+    expect(testFunc).toThrow(message);
+    expect(alert).toBeCalled();
+  });
+});
+=======
+>>>>>>> add validation logic to make entities actions and getters more robust
 
 describe('entities getters', () => {
   test('getApiUpdatePayload', () => {
