@@ -61,56 +61,45 @@ export default {
   background-color: $panel-background-color;
   display: inline-block;
   padding: 1.5em 2em;
-  border-bottom: 3px solid ;
+  border-bottom: 3px solid !important;
   width: 300px;
 }
-
-.reactor-card-ZeePrime1 {
-  border-bottom-color: $reactor-card-accent-color-1;
+// TODO write a function to reduce duplication
+.reactor-card-Prime1 {
+  border-bottom-color: $reactor-card-accent-color-1 !important;
 
   .divider-horizontal {
-    border-right: 2px solid $reactor-card-accent-color-1;
+    border-right: 2px solid $reactor-card-accent-color-1 !important;
     margin: 0 1em;
   }
 }
 
 .reactor-card-MV1 {
-  border-bottom-color: $reactor-card-accent-color-1;
+  border-bottom-color: $reactor-card-accent-color-1 !important;
 
   .divider-horizontal {
-    border-right: 2px solid $reactor-card-accent-color-1;
-    margin: 0 1em;
+    border-right: 2px solid $reactor-card-accent-color-1 !important;
+    margin: 0 1em ;
   }
 }
 
-.reactor-card-ZeePrime {
-  border-bottom-color: $reactor-card-accent-color-1;
+.reactor-card-Prime2 {
+  border-bottom-color: $reactor-card-accent-color-2 !important;
 
   .divider-horizontal {
-    border-right: 2px solid $reactor-card-accent-color-1;
+    border-right: 2px solid $reactor-card-accent-color-2 !important;
     margin: 0 1em;
   }
 }
-
-.reactor-card-ZeePrime2 {
-  border-bottom-color: $reactor-card-accent-color-2;
-
-  .divider-horizontal {
-    border-right: 2px solid $reactor-card-accent-color-2;
-    margin: 0 1em;
-  }
-}
-
 
 .reactor-card-MV2 {
-  border-bottom-color: $reactor-card-accent-color-2;
+  border-bottom-color: $reactor-card-accent-color-2 !important;
 
   .divider-horizontal {
-    border-right: 2px solid $reactor-card-accent-color-2;
+    border-right: 2px solid $reactor-card-accent-color-2 !important;
     margin: 0 1em;
   }
 }
-
 
 .reactor-card-data {
   display: flex;
