@@ -98,7 +98,7 @@ $font-size: 1.5;
 }
 
 .sidebar-item {
-  margin: .7em 0;
+  margin: 1.1em 0;
   padding-left: .6em;
 
   &.v-list__tile {

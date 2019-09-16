@@ -56,6 +56,8 @@ export default {
 <style lang='scss'>
 @import '../styles/variables.scss';
 
+$switch-size: 0.8;
+
 $handle-color: $red;
 $track-color: $red-dark;
 $handle-color-checked: $grey-700;
@@ -168,7 +170,7 @@ $ios-green: #4bd964;
       width: 52px;
       height: 22px;
 
-      transform: scale(.7);
+      transform: scale($switch-size);
 
       &:before {
         width: 30px;
