@@ -7,6 +7,7 @@ import sensors from './sensors.module';
 import ui from './ui.module';
 
 Vue.use(Vuex);
+const audio = new Audio(require('@/assets/touch.ogg'));
 
 const uiSounds = (store) => {
   store.subscribe((mutation) => {
@@ -16,8 +17,7 @@ const uiSounds = (store) => {
     || type.includes('MUTATE_MODULE_STATE')
     || type.includes('UPDATE_SELECTED_MODULE')
     ) {
-      const audio = new Audio(require('@/assets/click.mp3'));
-      // audio.play();
+      audio.play();
     }
   });
 };

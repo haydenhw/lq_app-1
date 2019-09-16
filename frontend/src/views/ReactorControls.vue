@@ -154,9 +154,10 @@ export default {
 // jj
 .line {
   margin-bottom: 1em;
+  margin-top: 1em;
   border-top: 1px solid white;
   opacity: 0.5;
-  width: 88%;
+  width: 100%;
 }
 
 .sb-divider {
@@ -193,7 +194,7 @@ export default {
   display: grid;
   height: 100%;
   width: 100%;
-  grid-template-columns: 250px auto;
+  grid-template-columns: 300px auto;
   grid-template-areas: "sidebar controls";
 }
 
@@ -220,7 +221,7 @@ export default {
 }
 
 .rc-controls {
-  padding: 34px 60px;
+  padding: 34px 44px;
   grid-area: controls;
 }
 
