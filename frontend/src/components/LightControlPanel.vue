@@ -132,7 +132,7 @@ export default {
 
 <style lang="scss" >
 .time-picker-wrapper {
-  width: 65%;
+  width: 35%;
   margin-left: auto;
   padding-right: 0.5em;
 }

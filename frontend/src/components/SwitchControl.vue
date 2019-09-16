@@ -46,10 +46,11 @@ export default {
 .power-control {
   display: flex;
   align-items: center;
+  width: 100%;
 }
 
 .power-control-switch {
-  margin-left: 0.9em;
+  margin-left: auto;
 }
 
 .power-control-state {

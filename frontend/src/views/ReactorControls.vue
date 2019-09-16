@@ -156,7 +156,8 @@ export default {
   margin-bottom: 1em;
   margin-top: 1em;
   border-top: 1px solid white;
-  opacity: 0.5;
+  // opacity: 0.5;
+  opacity: 0;
   width: 100%;
 }
 
@@ -221,7 +222,7 @@ export default {
 }
 
 .rc-controls {
-  padding: 34px 44px;
+  padding: 9px 44px;
   grid-area: controls;
 }
 

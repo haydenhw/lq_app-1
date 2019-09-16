@@ -86,10 +86,11 @@ export default {
 .slider-control {
   display: flex;
   align-items: center;
+  width: 100%; 
 }
 
 .slider-control-slider {
-  width: 30em;
+  width: 100%; 
 }
 
 .slider-control-level {

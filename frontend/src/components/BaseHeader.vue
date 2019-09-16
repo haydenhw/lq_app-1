@@ -76,8 +76,8 @@ export default {
 .header {
   align-items: center;
   // padding: 0.3em ($left-boundary-padding - 10) * 1px;
-  padding-top: 0.5em;
-  padding-bottom: 0;
+  padding-top: 0.3em;
+  padding-bottom: .25em;
   padding-right: 60px;
   display: flex;
   color: white;
